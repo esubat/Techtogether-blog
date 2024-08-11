@@ -29,7 +29,13 @@ router.post('/post', async (req, res) => {
 router.get('/posts', async (req, res) => {
     try {
 
-        const blogs = await prisma.post.findMany();
+        const blogs = await prisma.post.findMany({
+            select:{
+                id:true,
+                title:true,
+                description:true,
+            }
+        });
         return res.status(200).json({ data: blogs.length, blogs });
 
     } catch (error) {
