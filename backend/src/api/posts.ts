@@ -38,7 +38,7 @@ router.get('/posts', async (req, res) => {
 });
 
 // PUT method to update an existing blog post by ID
-router.put('/:id', async (req, res) => {
+router.put('/posts/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { title, content } = req.body;
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE method to remove a blog post by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/posts/:id', async (req, res) => {
     try {
         const { id } = req.params;
         await prisma.post.delete({
