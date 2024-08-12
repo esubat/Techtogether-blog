@@ -1,7 +1,6 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
-
 const router = express.Router()
 const prisma = new PrismaClient()
 
@@ -29,19 +28,45 @@ router.post('/post', async (req, res) => {
 router.get('/posts', async (req, res) => {
     try {
 
-        const blogs = await prisma.post.findMany({
+        const posts = await prisma.post.findMany({
             select:{
                 id:true,
                 title:true,
                 description:true,
             }
         });
-        return res.status(200).json({ data: blogs.length, blogs });
+        return res.status(200).json({ data: posts.length, posts });
 
     } catch (error) {
         return res.status(500).json({ message: "Error fetching blogs!" });
     }
 });
+
+// Get method for a specific blog based on Id, 
+// it doesn't select published field as it is not relevant to the client
+router.get('/posts/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const post = await prisma.post.findUnique ({
+            where:{ 
+               id : parseInt(id),
+            },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                content: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        });
+        return res.status(200).json({post})
+
+    } catch (error) {
+        return res.status(500).json({ message: "Error fetching the blog!" });
+    }
+});
+
 
 // PUT method to update an existing blog post by ID
 router.put('/posts/:id', async (req, res) => {
