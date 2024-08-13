@@ -60,7 +60,7 @@ router.get('/posts/:id', async (req, res) => {
                 updatedAt: true,
             },
         });
-        return res.status(200).json({post})
+        return res.status(200).json({post:post})
 
     } catch (error) {
         return res.status(500).json({ message: "Error fetching the blog!" });
