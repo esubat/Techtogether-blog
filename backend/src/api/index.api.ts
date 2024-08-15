@@ -1,7 +1,7 @@
 import express from 'express';
 
-import posts from './posts';
-import auth from './auth';
+import posts from './post.api';
+import auth from './auth.api';
 
 const router = express.Router();
 
