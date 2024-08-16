@@ -1,10 +1,10 @@
 import {Avatar, AvatarImage , AvatarFallback} from '@/components/ui/avatar';
 import Image from 'next/image';
 import Link from 'next/link';
-import {BlogList} from '@/types/blogList'
+import { BlogListType } from '@/types/blog';
 
 interface BlogListProps{
-  post : BlogList
+  post : BlogListType
 }
 export default function PostItems({post}:BlogListProps){
 
