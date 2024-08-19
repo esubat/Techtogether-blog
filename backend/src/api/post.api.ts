@@ -1,6 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import verifyJwt from "../middleware/jwt.middleware";
+import AuthorizeUser from  "../middleware/user.authorize.middleware"
 import {
     getSinglePost,
     getAllPosts,
@@ -17,8 +18,8 @@ const prisma = new PrismaClient()
 router.post('/create',verifyJwt, addPost);
 router.get('/', getAllPosts);
 router.get('/:id', getSinglePost);
-router.put('/update/:id', updatePost);
-router.delete('/delete/:id',deletePost);
+router.put('/update/:id',verifyJwt,AuthorizeUser, updatePost);
+router.delete('/delete/:id',verifyJwt,AuthorizeUser,deletePost);
 
 
 export default router;

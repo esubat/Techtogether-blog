@@ -28,14 +28,13 @@ export const Login = async(req: Request,res:Response) => {
 
         if (!checkpassword) return res.status(400).json({message:"invalid credentials"})
     
-        const token = jwt.sign(
-            { _id:user.id},
-            jwtSecret as string,
-            {
-                expiresIn : '7d'
-            });
+        const token = jwt.sign({
+            id:user.id, 
+            role:user.role},jwtSecret as string,{expiresIn : '7d'});
 
-        res.cookie('access_token' , token ).status(200).json({message:"Login successfull"})
+        res.cookie('access_token' , token )
+        .status(200)
+        .json({message:"Login successfull"})
 
     }catch(error){
         res.status(500).json({

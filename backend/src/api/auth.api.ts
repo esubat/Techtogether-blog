@@ -4,12 +4,13 @@ import {
     Login,
     passwordChange,
 } from '../controller/auth/index.auth';
-
+import verifyJwt from '../middleware/jwt.middleware';
+import AuthorizeAdmin from '../middleware/admin.midleware';
 const router = express.Router()
 
 
-router.post('/register',registerUser);
+router.post('/register',verifyJwt,AuthorizeAdmin,registerUser);
 router.post('/login', Login);
-router.put('/reset',passwordChange)
+router.put('/reset',verifyJwt,passwordChange)
 
 export default router;
