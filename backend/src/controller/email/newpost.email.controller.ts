@@ -1,12 +1,8 @@
-import Queue from "bull";
-import nodemailer from "nodemailer";
 import Subscribers from "../../services/users/fetchsubscribers";
 import dotenv from "dotenv";
 import taransporter from "../../utils/mailservice";
 
 dotenv.config();
-
-const emailQueue = new Queue("emails");
 
 interface EmailData {
     subject : string;
