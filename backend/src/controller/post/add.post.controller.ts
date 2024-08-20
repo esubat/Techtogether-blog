@@ -14,7 +14,7 @@ function isAuthRequest(req: Request): req is AuthorizedRequest {
     return (req as AuthorizedRequest).user !== undefined;
 }
 
-const addPost = async (req:AuthorizedRequest, res:Response , next:NextFunction) => {
+const addPost = async (req:AuthorizedRequest, res:Response ) => {
     
     if (!isAuthRequest(req) || !req.user) {
         return res
