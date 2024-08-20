@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../../utils/db";
+import SendPostToSubscribers from "../email/newpost.email.controller";
 
 interface AuthorizedRequest extends Request{
     user?:{
@@ -13,7 +14,7 @@ function isAuthRequest(req: Request): req is AuthorizedRequest {
     return (req as AuthorizedRequest).user !== undefined;
 }
 
-const addPost = async (req:AuthorizedRequest, res:Response) => {
+const addPost = async (req:AuthorizedRequest, res:Response , next:NextFunction) => {
     
     if (!isAuthRequest(req) || !req.user) {
         return res
@@ -38,6 +39,12 @@ const addPost = async (req:AuthorizedRequest, res:Response) => {
                 authorId:userId
             }
         });
+
+        SendPostToSubscribers({
+            subject: "New Blog Post", 
+            text: `A new blog post with title ${title} has been created! link: http://localhost:8080/api/posts/${blog.id}`
+        });
+
         return res
         .status(201)
         .json({ msg: "Blog created successfully!", data: blog });
