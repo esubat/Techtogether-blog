@@ -8,6 +8,7 @@ import {
     addPost,
     updatePost,
     deletePost,
+    draftPost
 } from '../controller/post/index.post.controllers';
 
 
@@ -21,5 +22,6 @@ router.get('/:id', getSinglePost);
 router.put('/update/:id',verifyJwt,AuthorizeUser, updatePost);
 router.delete('/delete/:id',verifyJwt,AuthorizeUser,deletePost);
 
+router.get('/draft',verifyJwt,AuthorizeUser , draftPost);
 
 export default router;
