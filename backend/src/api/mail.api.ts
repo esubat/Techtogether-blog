@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import subscribeUser from '../controller/mail/subscribe.controller';
+import subscribeUser from '../controller/email/subscribe.controller';
 
 router.post('/',subscribeUser);
 
